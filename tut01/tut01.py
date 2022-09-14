@@ -61,8 +61,10 @@ df.loc[((df.df_u<0) & (df.df_v<0) & (df.df_w<0)),"octant"] = "-3"
 df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w>0)),"octant"] = "+4"
 df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w<0)),"octant"] = "-4"
 
+#################################################################
+#task-1 starts here
 
-
+#created some variables to count octant values
 o_1p=0
 o_1n=0
 o_2p=0
@@ -92,12 +94,12 @@ for i in df['octant']:
         o_4n = o_4n + 1
 
 
-
+#created empty coloumn
 df[''] = ''
-
+#named a 1st row in empty coloumn as 'user input' 
 df.loc[1,['']] = 'user input'
 
-
+#created the following coloumns
 df['Octant ID']= ''
 df['+1']= ''
 df['-1']= ''
@@ -108,10 +110,12 @@ df['-3']= ''
 df['+4']= ''
 df['-4']= ''
 
+# inserted a name called mod 5000(for eg)
 df.loc[1,['Octant ID']] = 'mod ' + str(mod_i)
-
+#inserted a name called 'overall count'
 df.loc[0,['Octant ID']] = ['Overall count']
 
+#inserted the octant values in the dataframe
 df.loc[0,['+1']] = o_1p
 df.loc[0,['-1']] = o_1n
 df.loc[0,['+2']] = o_2p
@@ -122,9 +126,9 @@ df.loc[0,['+4']] = o_4p
 df.loc[0,['-4']] = o_4n
 
 
+##############################################################
 
-
-
+#Task-2 starts here
 len = len(df)
 i = 1
 start = 0
