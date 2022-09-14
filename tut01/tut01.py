@@ -14,19 +14,21 @@
 #octact_identification(mod)
 
 #print("hello")
+print("hello")
 import pandas as pd
 df = pd.read_csv(r"octant_input.csv")
 #print(df)
+
+mod = 5000
+mod_i = mod
 
 meanu = df['U'].mean()
 meanv = df['V'].mean()
 meanw = df['W'].mean()
 
-'''
 print(meanu)
 print(meanv)
 print(meanw)
-'''
 
 df['U Avg']= ''
 df['V Avg']= ''
@@ -45,14 +47,14 @@ df['df_w'] = df['W']-meanw
 
 #print(df)
 
-df.loc[((df.df_u>0) & (df.df_v>0) & (df.df_w>0)),"Octant"] = "+1"
-df.loc[((df.df_u>0) & (df.df_v>0) & (df.df_w<0)),"Octant"] = "-1"
-df.loc[((df.df_u<0) & (df.df_v>0) & (df.df_w>0)),"Octant"] = "+2"
-df.loc[((df.df_u<0) & (df.df_v>0) & (df.df_w<0)),"Octant"] = "-2"
-df.loc[((df.df_u<0) & (df.df_v<0) & (df.df_w>0)),"Octant"] = "+3"
-df.loc[((df.df_u<0) & (df.df_v<0) & (df.df_w<0)),"Octant"] = "-3"
-df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w>0)),"Octant"] = "+4"
-df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w<0)),"Octant"] = "-4"
+df.loc[((df.df_u>0) & (df.df_v>0) & (df.df_w>0)),"octant"] = "+1"
+df.loc[((df.df_u>0) & (df.df_v>0) & (df.df_w<0)),"octant"] = "-1"
+df.loc[((df.df_u<0) & (df.df_v>0) & (df.df_w>0)),"octant"] = "+2"
+df.loc[((df.df_u<0) & (df.df_v>0) & (df.df_w<0)),"octant"] = "-2"
+df.loc[((df.df_u<0) & (df.df_v<0) & (df.df_w>0)),"octant"] = "+3"
+df.loc[((df.df_u<0) & (df.df_v<0) & (df.df_w<0)),"octant"] = "-3"
+df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w>0)),"octant"] = "+4"
+df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w<0)),"octant"] = "-4"
 
 #print(df)
 
@@ -66,7 +68,7 @@ o_4p=0
 o_4n=0
 
 
-for i in df['Octant']:
+for i in df['octant']:
     if i=="+1":
         o_1p = o_1p +1
     elif i == "-1":
@@ -83,7 +85,7 @@ for i in df['Octant']:
         o_4p = o_4p + 1
     elif i == "-4":
         o_4n = o_4n + 1
-'''
+
 print(o_1p)
 print(o_1n)
 print(o_2p)
@@ -92,7 +94,11 @@ print(o_3p)
 print(o_3n)
 print(o_4p)
 print(o_4n)
-'''
+
+df[''] = ''
+
+df.loc[1,['']] = 'user input'
+
 
 df['Octant ID']= ''
 df['+1']= ''
@@ -103,6 +109,8 @@ df['+3']= ''
 df['-3']= ''
 df['+4']= ''
 df['-4']= ''
+
+df.loc[1,['Octant ID']] = 'mod ' + str(mod_i)
 
 df.loc[0,['Octant ID']] = ['Overall count']
 
@@ -117,7 +125,102 @@ df.loc[0,['-4']] = o_4n
 
 
 
-print(df)
+#print(df)
+
+#mod_i = input("enter the value of mod : ")
+
+
+#max_l = 30000
+
+len = len(df)
+i = 1
+start = 0
+last = mod_i
+
+while last<= len:
+    df['Octant ID'][i+1] = str(start) + "-" + str(last-1)
+    l_1p=0
+    l_1n=0
+    l_2p=0
+    l_2n=0
+    l_3p=0
+    l_3n=0
+    l_4p=0
+    l_4n=0    
+    for j in range(start,last):
+        if df['octant'][j]=="+1":
+            l_1p = l_1p +1
+        elif df['octant'][j] == "-1":
+            l_1n = l_1n + 1
+        elif df['octant'][j] == "+2":
+            l_2p = l_2p + 1
+        elif df['octant'][j] == "-2":
+            l_2n = l_2n + 1
+        elif df['octant'][j] == "+3":
+            l_3p = l_3p + 1
+        elif df['octant'][j] == "-3":
+            l_3n = l_3n + 1
+        elif df['octant'][j] == "+4":
+            l_4p = l_4p + 1
+        elif df['octant'][j] == "-4":
+            l_4n = l_4n + 1
+    df.loc[i+1,['+1']] = l_1p
+    df.loc[i+1,['-1']] = l_1n
+    df.loc[i+1,['+2']] = l_2p
+    df.loc[i+1,['-2']] = l_2n
+    df.loc[i+1,['+3']] = l_3p
+    df.loc[i+1,['-3']] = l_3n
+    df.loc[i+1,['+4']] = l_4p
+    df.loc[i+1,['-4']] = l_4n
+    start = last
+    i=i+1
+    last = mod_i*i
+
+print(len)
+
+if last>len:
+    df['Octant ID'][i+1] = str(start) + "-" + str(len-1)
+    p_1p=0
+    p_1n=0
+    p_2p=0
+    p_2n=0
+    p_3p=0
+    p_3n=0
+    p_4p=0
+    p_4n=0
+    for j in range(start,len):
+        if df['octant'][j]=="+1":
+            p_1p = p_1p +1
+        elif df['octant'][j] == "-1":
+            p_1n = p_1n + 1
+        elif df['octant'][j] == "+2":
+            p_2p = p_2p + 1
+        elif df['octant'][j] == "-2":
+            p_2n = p_2n + 1
+        elif df['octant'][j] == "+3":
+            p_3p = p_3p + 1
+        elif df['octant'][j] == "-3":
+            p_3n = p_3n + 1
+        elif df['octant'][j] == "+4":
+            p_4p = p_4p + 1
+        elif df['octant'][j] == "-4":
+            p_4n = p_4n + 1     
+    df.loc[i+1,['+1']] = p_1p
+    df.loc[i+1,['-1']] = p_1n
+    df.loc[i+1,['+2']] = p_2p
+    df.loc[i+1,['-2']] = p_2n
+    df.loc[i+1,['+3']] = p_3p
+    df.loc[i+1,['-3']] = p_3n
+    df.loc[i+1,['+4']] = p_4p
+    df.loc[i+1,['-4']] = p_4n   
+     
+
+#df.to_csv("octant_ouput.csv")
+
+     
+
+
+
 
 
 
