@@ -129,13 +129,20 @@ df.loc[0,['-4']] = o_4n
 ##############################################################
 
 #Task-2 starts here
+
+#created variable called len to store total no of rows 
 len = len(df)
+
+#loop to calculate octant values in mod ranges
 i = 1
 start = 0
 last = mod_i
 
 while last<= len:
     df['Octant ID'][i+1] = str(start) + "-" + str(last-1)
+    # warning will be showed for name suggestions 
+    #igonre the warning 'A value is trying to be set on a copy of a slice from a DataFrame'
+    # and wait 
     l_1p=0
     l_1n=0
     l_2p=0
@@ -211,7 +218,8 @@ if last>len:
     df.loc[i+1,['+4']] = p_4p
     df.loc[i+1,['-4']] = p_4n   
      
-
+#created a octant_octput file using .to_csv function
+#please delete  'octant_output.csv' file if it alredy exists in this directory
 df.to_csv("octant_ouput.csv")
 
      
