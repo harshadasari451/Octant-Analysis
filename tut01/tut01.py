@@ -10,43 +10,48 @@
 #else:
 #    print("Please install 3.8.10. Instruction are present in the GitHub Repo/Webmail. Url: https://pastebin.com/nvibxmjw")
 
-#mod=5000
+mod=5000
 #octact_identification(mod)
 
 #print("hello")
-print("hello")
+
 import pandas as pd
-df = pd.read_csv(r"octant_input.csv")
-#print(df)
+df = pd.read_csv(r"octant_input.csv")  
+# readed the input file and stored in dataframe called df
 
-mod = 5000
 mod_i = mod
-
+# stored the mod value in a temporary variable called mod_i
 meanu = df['U'].mean()
+# stored mean value of U in meanu
 meanv = df['V'].mean()
+# stored mean of V in meanv
 meanw = df['W'].mean()
+#stored mean of W in meanw
 
-print(meanu)
-print(meanv)
-print(meanw)
-
+#pre-processing starts
+# creating new empty coloumns called U avg, V avg, W avg
 df['U Avg']= ''
 df['V Avg']= ''
 df['W Avg']= ''
 
+# storing the values of meanu, meanv, meanw in 1st row of U avg,V avg,W avg
+# by using .loc function
 df.loc[0,['U Avg']] = meanu
 df.loc[0,['V Avg']] = meanv
 df.loc[0,['W Avg']] = meanw
 
-
+#calculating u-u_avg and storing the value in df_u
+#doing same for df_v and df_w
 df['df_u'] = df['U']-meanu
 df['df_v'] = df['V']-meanv
 df['df_w'] = df['W']-meanw
 
 
+#creating a coloumn called octant and using octant conditions to 
+# give octant values to [u,v,w] system
 
-#print(df)
-
+#using .loc function to use octant conditions and storing the the 
+#values in octant coloumns
 df.loc[((df.df_u>0) & (df.df_v>0) & (df.df_w>0)),"octant"] = "+1"
 df.loc[((df.df_u>0) & (df.df_v>0) & (df.df_w<0)),"octant"] = "-1"
 df.loc[((df.df_u<0) & (df.df_v>0) & (df.df_w>0)),"octant"] = "+2"
@@ -56,7 +61,7 @@ df.loc[((df.df_u<0) & (df.df_v<0) & (df.df_w<0)),"octant"] = "-3"
 df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w>0)),"octant"] = "+4"
 df.loc[((df.df_u>0) & (df.df_v<0) & (df.df_w<0)),"octant"] = "-4"
 
-#print(df)
+
 
 o_1p=0
 o_1n=0
@@ -86,14 +91,7 @@ for i in df['octant']:
     elif i == "-4":
         o_4n = o_4n + 1
 
-print(o_1p)
-print(o_1n)
-print(o_2p)
-print(o_2n)
-print(o_3p)
-print(o_3n)
-print(o_4p)
-print(o_4n)
+
 
 df[''] = ''
 
@@ -125,12 +123,7 @@ df.loc[0,['-4']] = o_4n
 
 
 
-#print(df)
 
-#mod_i = input("enter the value of mod : ")
-
-
-#max_l = 30000
 
 len = len(df)
 i = 1
@@ -176,7 +169,7 @@ while last<= len:
     i=i+1
     last = mod_i*i
 
-print(len)
+
 
 if last>len:
     df['Octant ID'][i+1] = str(start) + "-" + str(len-1)
@@ -215,7 +208,7 @@ if last>len:
     df.loc[i+1,['-4']] = p_4n   
      
 
-#df.to_csv("octant_ouput.csv")
+df.to_csv("octant_ouput.csv")
 
      
 
