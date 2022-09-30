@@ -13,7 +13,7 @@ else:
 mod=5000
 octant_transition_count(mod)
 '''
-
+#####  please igonre SettingWithCopy warning ######
 
 mod=5000
 #octact_identification(mod)
@@ -235,6 +235,9 @@ if last>len:
      
 
 ###################################################################################################
+####### task-3 starts here ##############
+
+### calculating overall transition count #####
 
 df.loc[13,['']] = ['overall Transition Count']
 df.loc[14,['+1']] = ['To']
@@ -255,6 +258,10 @@ df.loc[15,['+3']] = ['+3']
 df.loc[15,['-3']] = ['-3']
 df.loc[15,['+4']] = ['-4']
 df.loc[15,['-4']] = ['+4']
+
+#### creating a 9 x 9 matrix to store the values of transition values
+###  [adding 4 to each index +1,-1,+2,-2,+3,-3,+4,-4]
+
 rows, cols = (9,9)
 arr = [[0 for i in range(cols)] for j in range(rows)]
 for pop in range(len-1) : 
@@ -262,7 +269,7 @@ for pop in range(len-1) :
 z=5    
 for i in range(8) :
     if(i%2==0) :
-      df["+1"][i+16]=arr[z][5]               # count of +1 - +1 is stored in arr[4+1][4+1]   [adding 4 to each index +1,-1,+2,-2,+3,-3,+4,-4]
+      df["+1"][i+16]=arr[z][5]               # count of +1 - +1 is stored in arr[4+1][4+1]  
     if(i%2!=0) :                             # count of +1 - -1 is stored in arr[4+1][4-1]
        z=8-z                                 # count of +1 - +2 is stored in arr[4+1][2+4]
        df["+1"][i+16]=arr[z][5]              # count of +1 - -2 is stored in arr[1+4][-2+4]
@@ -335,7 +342,9 @@ for i in range(8) :
        z=z+1
 
 
-
+### creating a function to insert 9 x 9 matrix into data frame
+# and to that using iterative method
+ 
 def trans(first,end,mac):
     rows, cols = (9,9)
     arr = [[0 for i in range(cols)] for j in range(rows)]
@@ -344,34 +353,34 @@ def trans(first,end,mac):
     z=5    
     for i in range(8) :
         if(i%2==0) :
-            df['+1'][i+mac]=arr[z][5]               # count of +1 - +1 is stored in arr[4+1][4+1]   [adding 4 to each index +1,-1,+2,-2,+3,-3,+4,-4]
+            df['+1'][i+mac]=arr[z][5]            # count of +1 - +1 is stored in arr[4+1][4+1]   [adding 4 to each index +1,-1,+2,-2,+3,-3,+4,-4]
         if(i%2!=0) :                             # count of +1 - -1 is stored in arr[4+1][4-1]
-            z=8-z                                 # count of +1 - +2 is stored in arr[4+1][2+4]
-            df['+1'][i+mac]=arr[z][5]              # count of +1 - -2 is stored in arr[1+4][-2+4]
-            z=8-z                                 # count of +1 - +3 is stored in arr[4+1][3+4]
-            z=z+1                                 # count of +1 - -3 is stored in arr[4+1][-3+4]
+            z=8-z                                # count of +1 - +2 is stored in arr[4+1][2+4]
+            df['+1'][i+mac]=arr[z][5]            # count of +1 - -2 is stored in arr[1+4][-2+4]
+            z=8-z                                # count of +1 - +3 is stored in arr[4+1][3+4]
+            z=z+1                                # count of +1 - -3 is stored in arr[4+1][-3+4]
     z=5                                          # count of +1 - +4 is stored in arr[4+1][4+4]
     for i in range(8) :                          # count of +1 - -4 is stored in arr[4+1][-4+4]
         if(i%2==0) :
             df['-1'][i+mac]=arr[z][3]
         if(i%2!=0) :                             # count of +2 - +1 is stored in arr[4+2][1+4]
-            z=8-z                                 # count of +2 - -1 is stored in arr[4+2][-1+4]
-            df["-1"][i+mac]=arr[z][3]              # count of +2 - +2 is stored in arr[4+2][2+4]
-            z=8-z                                 # count of +2 - -2 is stored in arr[4+2][-2+4]
-            z=z+1                                 # count of +2 - +3 is stored in arr[4+2][3+4]
+            z=8-z                                # count of +2 - -1 is stored in arr[4+2][-1+4]
+            df["-1"][i+mac]=arr[z][3]            # count of +2 - +2 is stored in arr[4+2][2+4]
+            z=8-z                                # count of +2 - -2 is stored in arr[4+2][-2+4]
+            z=z+1                                # count of +2 - +3 is stored in arr[4+2][3+4]
     z=5                                          # count of +2 - -3 is stored in arr[4+2][-3+4]
     for i in range(8) :                          # count of +2 - +4 is stored in arr[4+2][4+4]
         if(i%2==0) :                             # count of +2 - -4 is stored in arr[4+2][-4+4]
             df["+2"][i+mac]=arr[z][6]
         if(i%2!=0) :
             z=8-z
-            df["+2"][i+mac]=arr[z][6]              # count of +3 - +1 is stored in arr[4+3][1+4]
-            z=8-z                                 # count of +3 - -1 is stored in arr[4+3][-1+4]
-            z=z+1                                 # count of +3 - +2  is stored in arr[4+3][2+4]
+            df["+2"][i+mac]=arr[z][6]            # count of +3 - +1 is stored in arr[4+3][1+4]
+            z=8-z                                # count of +3 - -1 is stored in arr[4+3][-1+4]
+            z=z+1                                # count of +3 - +2  is stored in arr[4+3][2+4]
     z=5                                          # count of +3 - -2  is stored in arr[4+3][-2+4]
     for i in range(8) :                          # count of +3 - +3  is stored in arr[4+3][3+4]
         if(i%2==0) :                             # count of +3 - -3  is stored in arr[4+3][-3+4]
-            df["-2"][i+mac]=arr[z][2]               # count of +3 - +4  is stored in arr[4+3][4+4]
+            df["-2"][i+mac]=arr[z][2]            # count of +3 - +4  is stored in arr[4+3][4+4]
         if(i%2!=0) :                             # count of +3 - -4  is stored in arr[4+3][-4+4]
             z=8-z
             df["-2"][i+mac]=arr[z][2]
@@ -381,11 +390,11 @@ def trans(first,end,mac):
     z=5                                          # count of +4 - +1  is stored in arr[4+4][1+4]
     for i in range(8) :                          # count of +4 - -1  is stored in arr[4+4][-1+4]
         if(i%2==0) :                             # count of +4 - +2  is stored in arr[4+4][2+4]
-            df["+3"][i+mac]=arr[z][7]               # count of +4 - -2  is stored in arr[4+4][-2+4]
+            df["+3"][i+mac]=arr[z][7]            # count of +4 - -2  is stored in arr[4+4][-2+4]
         if(i%2!=0) :                             # count of +4 - +3  is stored in arr[4+4][3+4]
-            z=8-z                                 # count of +4 - -3  is stored in arr[4+4][-3+4]
-            df["+3"][i+mac]=arr[z][7]              # count of +4 - +4  is stored in arr[4+4][4+4]
-            z=8-z                                 # count of +4 - -4  is stored in arr[4+4][-4+4]
+            z=8-z                                # count of +4 - -3  is stored in arr[4+4][-3+4]
+            df["+3"][i+mac]=arr[z][7]            # count of +4 - +4  is stored in arr[4+4][4+4]
+            z=8-z                                # count of +4 - -4  is stored in arr[4+4][-4+4]
             z=z+1
 
     z=5
@@ -424,6 +433,8 @@ start = 0
 last = mod_i
 
 while last<= len:
+
+    ### making mod trasition table using while loop as did before
     df.loc[mac,['']] = ['mod Transition Count']
     df.loc[mac+1,['Octant ID']] = str(start)+'-'+str(last-1)
     df.loc[mac+1,['+1']] = ['To']
@@ -474,7 +485,8 @@ if last>len:
     df.loc[mac+2,['-3']] = ['-3']
     df.loc[mac+2,['+4']] = ['-4']
     df.loc[mac+2,['-4']] = ['+4']
+    ## using trans function to count trasition count and insrt values into dataframe
+    ##  please ignore warning "setting with copy "
     trans(start,len,mac+3)
 
-df.to_excel("Output_octant_transition_identify1.xlsx")
-#df.to_csv("out.csv")
+df.to_excel("output_octant_transition_identify.xlsx")
