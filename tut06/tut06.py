@@ -25,6 +25,5 @@ att_dates = ["28/07/2022",
 str_time = "14"
 
 df[["date","time"]]=df.Timestamp.str.split(" ",expand=True,)
-df.loc[((re.fullmatch(df.date,att_dates)) and (14<=int((df.time).split(":")[0])<15)),"attend"] = "T-attend"
-df.loc[(14>int((df.time).split(":")[0]) or (int((df.time).split(":")[0])>15)),"attend"] = "F-attend"
+
 print(df)

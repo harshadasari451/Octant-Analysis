@@ -1,14 +1,17 @@
-try:
-    import pandas as pd
-    import math
-    def octant_range_names(mod=5000):
+import pandas as pd
+import math
+
+from datetime import datetime
+start_time = datetime.now()
+
+def octant_range_names(mod=5000):
      try:
         df = pd.read_excel("octant_input.xlsx")  # reading the input file
         df.head()
-        df["U_Average"] = df["U"].mean()     #Creating average for coloumns U,V,W 
+        df["U_Average"] = df["U"].mean()     
         df["V_Average"] = df["V"].mean()
         df["W_Average"] = df["W"].mean()
-        df["U1"] = df["U"]-df["U_Average"]  # Creating new columns for U1,V2,W3 
+        df["U1"] = df["U"]-df["U_Average"]  
         df["V2"] = df["V"]-df["V_Average"] 
         df["W3"] = df["W"]-df["W_Average"] 
         
@@ -35,7 +38,7 @@ try:
         y=str(mod)
         df.loc[1,"octant id"]="mod"+" "+y 
         try: 
-          d=math.ceil(29745/mod) # greatest integer function for identifing 
+          d=math.ceil(29745/mod) 
           l=0000
           m=mod-1
           a=str(l)
@@ -62,107 +65,115 @@ try:
                   if df["Octant"][t]=="+4" : # counting number of +4 octant in range of 0-30000
                      c =c+1
                   t=t+1
-                  if t== 29745 : #we have break loop at t=29745 because after 
+                  if t== 29745 :  
                     break
               df.loc[p,"+4"]=c #assigning count of +4 in each coloumn by iterating p
               p=p+1
               c=0
               j=7
+######################################################################
+#repating the above loop###############################
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="-4" :# counting number of -4 octant in range of 0-30000
+                  if df["Octant"][t]=="-4" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"-4"]=c #assigning count of -4 in each coloumn by iterating p
+              df.loc[p,"-4"]=c 
               p=p+1
               c=0
               j=7
+############################################################
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="+3" :# counting number of +3 octant in range of 0-30000
+                  if df["Octant"][t]=="+3" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"+3"]=c #assigning count of +3 in each coloumn by iterating p
+              df.loc[p,"+3"]=c 
               p=p+1
               c=0
               j=7
+######################################################################
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="-3" :# counting number of -3 octant in range of 0-30000
+                  if df["Octant"][t]=="-3" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"-3"]=c #assigning count of -3 in each coloumn by iterating p
+              df.loc[p,"-3"]=c 
               p=p+1
               c=0
               j=7
+############################################################################
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="+2" :# counting number of +2 octant in range of 0-30000
+                  if df["Octant"][t]=="+2" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"+2"]=c #assigning count of +2 in each coloumn by iterating p
+              df.loc[p,"+2"]=c 
               p=p+1
               c=0
               j=7 
+######################################################################
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="-2" :# counting number of -2 octant in range of 0-30000
+                  if df["Octant"][t]=="-2" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"-2"]=c #assigning count of -2 in each coloumn by iterating p
+              df.loc[p,"-2"]=c 
               p=p+1
               c=0
               j=7
+###############################################################
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="+1" :# counting number of +1 octant in range of 0-30000
+                  if df["Octant"][t]=="+1" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"+1"]=c#assigning count of +1 in each coloumn by iterating p
+              df.loc[p,"+1"]=c
               p=p+1
               c=0
-              j=7    
+              j=7  
+################################################  
           c=0
           t=0
           p=2
-          for j in range(d) :# no of coloumns in the output for each octant
+          for j in range(d) :
               for i in range(mod) :
-                  if df["Octant"][t]=="-1" :# counting number of -1 octant in range of 0-30000
+                  if df["Octant"][t]=="-1" :
                      c =c+1
                   t=t+1
                   if t== 29745 :
                     break
-              df.loc[p,"-1"]=c #assigning count of -1 in each coloumn by iterating p
+              df.loc[p,"-1"]=c 
               p=p+1
               c=0
               j=7
@@ -413,7 +424,23 @@ try:
              print("please enter mod value greater than 0")    
      except :
       print("the input file does not exists/or any error")    
-    mod=5000 
-    octant_range_names(mod)  
-except:
-    print("install pandas,math and import it.")
+
+###Code
+
+from platform import python_version
+ver = python_version()
+
+if ver == "3.8.10":
+    print("Correct Version Installed")
+else:
+    print("Please install 3.8.10. Instruction are present in the GitHub Repo/Webmail. Url: https://pastebin.com/nvibxmjw")
+
+
+mod=5000 
+octant_range_names(mod)
+
+
+
+#This shall be the last lines of the code.
+end_time = datetime.now()
+print('Duration of Program Execution: {}'.format(end_time - start_time))
