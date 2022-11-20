@@ -2,37 +2,37 @@ import pandas as pd
 import re 
 text= open("pak_inns1.txt","r").read() #reading 1st innings input file into 'text'
 
-sent=[]
+send=[]
 
 for row in text.split("\n"):
-	sent.append(row)         #making a list for each line of the commentary
+	send.append(row)         #making a list for each line of the commentary
 
 
 ball=re.findall(r'([0-9][.][1-6]|[1-2][0-9][.][1-6])',text) #finding no of valid ball numbers
 
 
-while("" in sent):
-    sent.remove("") #removing empty characters in 'sent' list
+while("" in send):
+    send.remove("") #removing empty characters in 'send' list
 
 
 for i in range(62):
 
-		sent[i]=sent[i][:3]+","+sent[i][3:]
+		send[i]=send[i][:3]+","+send[i][3:]
 
 for i in range(62,123):                      #adding extra comma after every ball number
 	
-		sent[i]=sent[i][:4]+","+sent[i][4:]
+		send[i]=send[i][:4]+","+send[i][4:]
 
 
 
-l=len(sent)  # finding lenght of the list
+l=len(send)  # finding lenght of the list
 
 line=[]
 
 list1=[]
 
 for i in range(l):
-	list1=sent[i].split(',')
+	list1=send[i].split(',')
 	line.append(list1)        # splitting each line of commentary @ ','
 
 lx=len(line)
@@ -101,7 +101,7 @@ for i in range(lx): #iterating through every ball
         mybowlers.loc[bowlername,'B'] = mybowlers.loc[bowlername,'B'] + 1
         mybowlers.loc[bowlername,'R'] = mybowlers.loc[bowlername,'R'] + 1
         score = score +1
-        
+    
     
   elif line[i][2] == ' 2 runs' or line[i][2] == ' 2 run' or line[i][2] == ' 2': #it the verdict of the ball is '2' runs
         mybatsman.loc[batsname,'R'] = mybatsman.loc[batsname,'R'] + 2 
